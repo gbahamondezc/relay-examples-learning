@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6f43e1e24fce30b93f3bf78e63371e37>>
+ * @generated SignedSource<<6dd9b5cd73892a5e3fdaf40e5d49c965>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,9 +12,10 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type NewsfeedQuery$variables = {};
 export type NewsfeedQuery$data = {
-  readonly topStory: {
+  readonly topStories: ReadonlyArray<{
+    readonly id: string;
     readonly " $fragmentSpreads": FragmentRefs<"StoryFragment">;
-  } | null;
+  } | null> | null;
 };
 export type NewsfeedQuery = {
   response: NewsfeedQuery$data;
@@ -22,27 +23,18 @@ export type NewsfeedQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "url",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "altText",
-    "storageKey": null
-  }
-],
-v1 = {
+var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "altText",
   "storageKey": null
 };
 return {
@@ -57,9 +49,10 @@ return {
         "args": null,
         "concreteType": "Story",
         "kind": "LinkedField",
-        "name": "topStory",
-        "plural": false,
+        "name": "topStories",
+        "plural": true,
         "selections": [
+          (v0/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -83,9 +76,10 @@ return {
         "args": null,
         "concreteType": "Story",
         "kind": "LinkedField",
-        "name": "topStory",
-        "plural": false,
+        "name": "topStories",
+        "plural": true,
         "selections": [
+          (v0/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -126,6 +120,7 @@ return {
                 "kind": "TypeDiscriminator",
                 "abstractKey": "__isActor"
               },
+              (v0/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -140,10 +135,29 @@ return {
                 "kind": "LinkedField",
                 "name": "profilePicture",
                 "plural": false,
-                "selections": (v0/*: any*/),
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": [
+                      {
+                        "kind": "Literal",
+                        "name": "height",
+                        "value": 60
+                      },
+                      {
+                        "kind": "Literal",
+                        "name": "width",
+                        "value": 60
+                      }
+                    ],
+                    "kind": "ScalarField",
+                    "name": "url",
+                    "storageKey": "url(height:60,width:60)"
+                  },
+                  (v1/*: any*/)
+                ],
                 "storageKey": null
-              },
-              (v1/*: any*/)
+              }
             ],
             "storageKey": null
           },
@@ -154,26 +168,40 @@ return {
             "kind": "LinkedField",
             "name": "thumbnail",
             "plural": false,
-            "selections": (v0/*: any*/),
+            "selections": [
+              {
+                "alias": null,
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "name": "width",
+                    "value": 400
+                  }
+                ],
+                "kind": "ScalarField",
+                "name": "url",
+                "storageKey": "url(width:400)"
+              },
+              (v1/*: any*/)
+            ],
             "storageKey": null
-          },
-          (v1/*: any*/)
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "9a0f6497454e1de946ae4590624327d7",
+    "cacheID": "aebbd0c19babde43569dbd6ea07914e4",
     "id": null,
     "metadata": {},
     "name": "NewsfeedQuery",
     "operationKind": "query",
-    "text": "query NewsfeedQuery {\n  topStory {\n    ...StoryFragment\n    id\n  }\n}\n\nfragment ImageFragment on Image {\n  url\n  altText\n}\n\nfragment PosterBylineFragment on Actor {\n  __isActor: __typename\n  name\n  profilePicture {\n    ...ImageFragment\n  }\n}\n\nfragment StoryFragment on Story {\n  title\n  summary\n  createdAt\n  poster {\n    __typename\n    ...PosterBylineFragment\n    id\n  }\n  thumbnail {\n    ...ImageFragment\n  }\n}\n"
+    "text": "query NewsfeedQuery {\n  topStories {\n    id\n    ...StoryFragment\n  }\n}\n\nfragment ImageFragment_3XLoCc on Image {\n  url(width: 60, height: 60)\n  altText\n}\n\nfragment ImageFragment_OxVt3 on Image {\n  url(width: 400)\n  altText\n}\n\nfragment PosterBylineFragment on Actor {\n  __isActor: __typename\n  id\n  name\n  profilePicture {\n    ...ImageFragment_3XLoCc\n  }\n}\n\nfragment StoryFragment on Story {\n  title\n  summary\n  createdAt\n  poster {\n    __typename\n    ...PosterBylineFragment\n    id\n  }\n  thumbnail {\n    ...ImageFragment_OxVt3\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "65c357bf80ef742b634fe4d5946d1b3a";
+(node as any).hash = "06e6b6b9d307eae64894bc47ffa26664";
 
 export default node;

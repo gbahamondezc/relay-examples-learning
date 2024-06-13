@@ -18,7 +18,7 @@ const StoryFragment = graphql`
       ...PosterBylineFragment
     }
     thumbnail {
-      ...ImageFragment
+      ...ImageFragment @arguments(width: 400)
     }
   }
 `;
